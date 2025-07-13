@@ -1,9 +1,9 @@
 import streamlit as st
-from app.faq import ingest_faq_data, faq_chain
-from app.sql import sql_chain
-from app.smalltalk import talk
+from faq import ingest_faq_data, faq_chain
+from sql import sql_chain
+from smalltalk import talk
 from pathlib import Path
-from app.router import router
+from router import router
 
 faqs_path = Path(__file__).parent / "resources/faq_data.csv"
 
