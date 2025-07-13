@@ -1,8 +1,8 @@
 import streamlit as st
-from faq import faq_chain
-from sql import sql_chain
-from smalltalk import talk
-from router import router
+from .faq import faq_chain
+from .sql import sql_chain
+from .smalltalk import talk
+from .router import router
 
 
 st.set_page_config(page_title="MegaMart Bot", layout="centered")
