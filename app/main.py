@@ -2,10 +2,8 @@ import streamlit as st
 from faq import faq_chain
 from sql import sql_chain
 from smalltalk import talk
-from pathlib import Path
 from router import router
 
-faqs_path = Path(__file__).parent / "resources/faq_data.csv"
 
 st.set_page_config(page_title="MegaMart Bot", layout="centered")
 st.title("🛍️ MegaMart Chatbot")
@@ -14,12 +12,6 @@ st.sidebar.title("Settings")
 api_key = st.sidebar.text_input("Enter your Groq API Key:", type="password")
 
 
-if "data_ingested" not in st.session_state:
-    ingest_faq_data(faqs_path)
-    st.session_state["data_ingested"] = True
-
-if api_key:
-    st.session_state["GROQ_API_KEY"] = api_key
 
 def ask(query):
     route = router(query).name
@@ -46,9 +38,13 @@ for message in st.session_state.messages:
 if query:
     with st.chat_message("user"):
         st.markdown(query)
-    st.session_state.messages.append({"role":"user", "content":query})
+    st.session_state.messages.append({"role": "user", "content": query})
 
-    response = ask(query)
+    if not api_key:
+        response = "⚠️ Please enter your Groq API key in the sidebar."
+    else:
+        response = ask(query, api_key)
+
     with st.chat_message("assistant"):
         st.markdown(response)
     st.session_state.messages.append({"role": "assistant", "content": response})
