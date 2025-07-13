@@ -1,5 +1,5 @@
 import streamlit as st
-from faq import ingest_faq_data, faq_chain
+from faq import faq_chain
 from sql import sql_chain
 from smalltalk import talk
 from pathlib import Path
